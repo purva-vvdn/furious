@@ -1,43 +1,53 @@
-*** Settings***
-# [Documentation]        Import all Library here
-Library        Collections
-Library        Dialogs
-
-*** Variables ***
-@{listData}        Radha    Rani    Ka    Naam    Japo
-&{dicData}         Name=Radha    Designation=Rani
+*** Settings ***
+Library    OperatingSystem
+Library    Collections
 
 *** Test Cases ***
-Tc_001
-    [Documentation]    List Operation
-    [Tags]    list
-    Append To List        ${listData}        Amit
-    Log to console      ${listData}
+Test Case 1 - Verify File Exists
+    [Documentation]    Verify if a file exists in the current directory
+    Create File    testfile1.txt
+    File Should Exist    testfile1.txt
 
-Tc_002
-    [Documentation]    Perform Task on Dictionary
-    [Tags]    Dictionary
-    Set To Dictionary    ${dicData}    Name=Amit    Designation=Devloper    
-    # Log to console       &{dicData} 
-Tc_003
-    [Documentation]    Remove from Dictionary
-    [Tags]    Dictionary
-    Remove From Dictionary    ${dicData}    Name
-Tc_004
-    [Documentation]    Remove from List
-    [Tags]    list
-    Remove From List    ${listData}    4
-    Log to console      ${listData}
-    ${newvar}        Combine Lists    ${listData}    ${listData}
-    Log to console    ${newvar}
+Test Case 2 - Check Directory Creation
+    [Documentation]    Verify if a directory can be created successfully
+    Create Directory    TestDirectory
+    Directory Should Exist    TestDirectory
 
-Tc_005
-    [Documentation]        Dialogs Operation
-    [Tags]        Dialogs
-    ${user}       Get Selection From User    Select user    Admit    User1    User2
-    Log to console    ${user}
-    Pause Execution
-    ${detail}     Get Value From User    Input your email
-    ${password}    Get Value From User    Enter you password    hidden=yes
-    Log to console    ${detail}
-    Log to console    ${password}
+Test Case 3 - Validate String Equality
+    [Documentation]    Verify if two strings are equal
+    Should Be Equal    Hello    Hello
+
+Test Case 4 - Validate List Length
+    [Documentation]    Verify if a list has the expected number of elements
+    ${list}=    Create List    One    Two    Three
+    Length Should Be    ${list}    3
+
+Test Case 5 - Check Number Equality
+    [Documentation]    Verify if two numbers are equal
+    Should Be Equal As Numbers    10    10
+
+Test Case 6 - Verify File Removal
+    [Documentation]    Verify if a file can be removed successfully
+    Create File    testfile2.txt
+    Remove File    testfile2.txt
+    File Should Not Exist    testfile2.txt
+
+Test Case 7 - Check Dictionary Key
+    [Documentation]    Verify if a dictionary contains a specific key
+    ${dict}=    Create Dictionary    key1=value1    key2=value2
+    Dictionary Should Contain Key    ${dict}    key1
+
+Test Case 8 - Validate Substring
+    [Documentation]    Verify if a string contains a specific substring
+    Should Contain    Hello, World!    Hello
+
+Test Case 9 - Check List Contains Item
+    [Documentation]    Verify if a list contains a specific item
+    ${list}=    Create List    Item1    Item2    Item3
+    List Should Contain Value    ${list}    Item2
+
+Test Case 10 - Confirm Current Directory
+    [Documentation]    Verify if the current directory is accessible
+    ${current_dir}=    Get Current Directory
+    Log    Current directory: ${current_dir}
+    Directory Should Exist    ${current_dir}
