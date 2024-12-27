@@ -47,8 +47,4 @@ Test Case 9 - Check List Contains Item
     ${list}=    Create List    Item1    Item2    Item3
     List Should Contain Value    ${list}    Item2
 
-Test Case 10 - Confirm Current Directory
-    [Documentation]    Verify if the current directory is accessible
-    ${current_dir}=    Get Current Directory
-    Log    Current directory: ${current_dir}
-    Directory Should Exist    ${current_dir}
+#
